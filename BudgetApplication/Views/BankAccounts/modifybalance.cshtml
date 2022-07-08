@@ -1,0 +1,33 @@
+﻿
+@model BudgetApplication.Models.BankAccounts
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Edit Bank Account Balance";
+}
+<h1 style="margin:auto; text-align:center;">@ViewBag.Title</h1>
+
+<h3 style="margin:auto; text-align:center;">Balance for bank account: @Model.BankAccountName</h3>
+
+<div class="budget-submit-form">
+    <form asp-controller="BankAccounts" asp-action="ModifyBalance" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group" style="display:none;">
+            <label asp-for="BankAccountId" class="control-label"></label>
+            <input asp-for="BankAccountId" class="form-control" />
+            <span asp-validation-for="BankAccountId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Balance" class="control-label"></label>
+            <input asp-for="Balance" class="form-control" />
+            <span asp-validation-for="Balance" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="margin-top: 5px;">
+            <input type="submit" value="Modify" class="btn btn-primary" | />
+            <a asp-controller="BankAccounts" asp-action="BankAccounts" class="btn btn-danger" >Cancel</a>
+        </div>
+    </form>
+</div>
+

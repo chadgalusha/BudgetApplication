@@ -1,0 +1,48 @@
+﻿
+@model BudgetApplication.Models.BankAccounts
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Delete Bank Account";
+}
+<h1 style="margin:auto; text-align:center;">@ViewBag.Title</h1>
+
+<h3 style="margin:auto; text-align:center;">Delete Bank Account: @Model.BankAccountName</h3>
+
+<div class="budget-submit-form">
+    <form asp-controller="BankAccounts" asp-action="DeleteBankAccount" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group" style="display:none;">
+            <label asp-for="BankAccountId" class="control-label"></label>
+            <input asp-for="BankAccountId" class="form-control" />
+            <span asp-validation-for="BankAccountId" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="display:none;">
+            <label asp-for="UserId" class="control-label"></label>
+            <input asp-for="UserId" class="form-control" readonly/>
+            <span asp-validation-for="UserId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="BankAccountName" class="control-label"></label>
+            <input asp-for="BankAccountName" class="form-control" readonly/>
+            <span asp-validation-for="BankAccountName" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="display:inline-block;">
+            <label asp-for="BankAccountTypeId" class="control-label"></label>
+            <select asp-for="BankAccountTypeId" class="form-control" asp-items="ViewBag.BankAccountTypeId" style="width: 200px;text-align:center;" disabled></select>
+            <span asp-validation-for="BankAccountTypeId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Balance" class="control-label"></label>
+            <input asp-for="Balance" class="form-control" readonly/>
+            <span asp-validation-for="Balance" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="margin-top: 5px;">
+            <input type="submit" value="Delete" class="btn btn-primary" onclick="return confirm('Delete Bank Account?')" />
+            <a asp-controller="BankAccounts" asp-action="BankAccounts" class="btn btn-danger" >Cancel</a>
+        </div>
+    </form>
+</div>
+

@@ -1,0 +1,38 @@
+﻿
+@model IEnumerable<BudgetApplication.Models.BankAccountTypes>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Bank Account Types";
+}
+<h1>@ViewBag.Title</h1>
+
+<p>Bank Account Types</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BankAccountTypeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BankAccountType)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BankAccountTypeId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BankAccountType)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

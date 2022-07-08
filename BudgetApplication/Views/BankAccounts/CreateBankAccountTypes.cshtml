@@ -1,0 +1,35 @@
+﻿@model BudgetApplication.Models.BankAccountTypes
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+@{
+    ViewData["Title"] = "CreateBankAccountTypes";
+}
+
+<h1 style="text-align:center;">Create Bank Account Types</h1>
+
+<hr />
+
+<div class="budget-submit-form">
+    <form asp-controller="BankAccounts" asp-action="CreateBankAccountTypes">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="BankAccountType" class="control-label"></label>
+            <input asp-for="BankAccountType" class="form-control" />
+            <span asp-validation-for="BankAccountType" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="margin-top: 5px;">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </form>
+</div>
+
+
+<div id="back-button">
+    <a asp-controller="BankAccounts" asp-action="BankAccountTypes" class="btn btn-warning">Back to Bank Account Types</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

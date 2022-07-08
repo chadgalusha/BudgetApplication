@@ -1,0 +1,60 @@
+﻿
+@model IEnumerable<BudgetApplication.ViewModels.BankAccountsViewModel>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Bank Accounts";
+}
+<h1 style="margin:auto; text-align:center;">@ViewBag.Title</h1>
+
+<table class="styled-table" style="margin:auto;">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BankAccountId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BankAccountName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BankAccountType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Balance)
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BankAccountId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BankAccountName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BankAccountType)
+                </td>
+                <td>
+                    $@Html.DisplayFor(modelItem => item.Balance)
+                </td>
+                <td>
+                    <a asp-controller="BankAccounts" asp-action="ModifyBalance" asp-route-bankAccountId="@item.BankAccountId" class="btn btn-info btn-sm">Modify Balance</a> |
+                    <a asp-controller="BankAccounts" asp-action="EditBankAccount" asp-route-bankAccountId="@item.BankAccountId" class="btn btn-warning btn-sm">Edit</a> | 
+                    <a asp-controller="BankAccounts" asp-action="DeleteBankAccount" asp-route-bankAccountId="@item.BankAccountId" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="center-button">
+    <a asp-controller="BankAccounts" asp-action="CreateBankAccount" class="btn btn-primary btn-sm" id="center-button">Create New Bank Account</a>
+</div>
