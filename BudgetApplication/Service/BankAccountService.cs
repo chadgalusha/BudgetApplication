@@ -2,9 +2,6 @@
 using BudgetApplication.Models;
 using BudgetApplication.ViewModels;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using System.Collections;
 
 namespace BudgetApplication.Service
 {

@@ -1,7 +1,5 @@
 ﻿using BudgetApplication.DataAccess;
 using BudgetApplication.Models;
-using BudgetApplication.ViewModels;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace BudgetApplication.Service
