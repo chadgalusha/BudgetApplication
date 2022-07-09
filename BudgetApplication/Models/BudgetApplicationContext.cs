@@ -18,6 +18,7 @@ namespace BudgetApplication.Models
 
         public virtual DbSet<BankAccountTypes> BankAccountTypes { get; set; } = null!;
         public virtual DbSet<BankAccounts> BankAccounts { get; set; } = null!;
+        public virtual DbSet<PaymentFrequencies> PaymentFrequencies { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
