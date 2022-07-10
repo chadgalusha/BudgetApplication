@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Serilog;
 
 namespace BudgetApplication.Controllers
 {
@@ -105,6 +106,7 @@ namespace BudgetApplication.Controllers
 
             if (currentUserId != userId)
             {
+                Log.Information("Incorrect user [{currentUserId}] tried to delete bank account id {bankAccountId}", currentUserId, bankAccountId);
                 return NotFound();
             }
 
@@ -112,6 +114,7 @@ namespace BudgetApplication.Controllers
 
             if (result == 0)
             {
+                Log.Error("Error, bank account Id {bankAccountId} not found", bankAccountId);
                 return NotFound();
             }
 

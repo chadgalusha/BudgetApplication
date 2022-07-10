@@ -43,8 +43,8 @@ namespace BudgetApplication.Service
 
         public int GetBankAccountTypeByBankAccountId(int bankAccountId)
         {
-            var currentBankAccountTypeId = _bankAccountDataAccess.GetBankAccountTypeByBankAccountIdAsync(bankAccountId).Result;
-            return (int)currentBankAccountTypeId.BankAccountTypeId;
+            var currentBankAccount = _bankAccountDataAccess.GetUserBankAccountByBankAccountIdAsync(bankAccountId).Result;
+            return (int)currentBankAccount.BankAccountTypeId;
         }
 
         public void EditBankAccount(int bankAccountId, string bankAccountName, int bankAccountTypeId, decimal balance)
