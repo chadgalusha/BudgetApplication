@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace BudgetApplication.Models
 {
@@ -18,6 +15,11 @@ namespace BudgetApplication.Models
 
         public virtual DbSet<BankAccountTypes> BankAccountTypes { get; set; } = null!;
         public virtual DbSet<BankAccounts> BankAccounts { get; set; } = null!;
+        public virtual DbSet<EstimatedIncomeAmount> EstimatedIncomeAmounts { get; set; } = null!;
+        public virtual DbSet<EstimatedIncomeToIncome> EstimatedIncomeToIncomes { get; set; } = null!;
+        public virtual DbSet<Incomes> Incomes { get; set; } = null!;
+        public virtual DbSet<IncomeHistory> IncomeHistories { get; set; } = null!;
+        public virtual DbSet<IncomeTypes> IncomeTypes { get; set; } = null!;
         public virtual DbSet<PaymentFrequencies> PaymentFrequencies { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
