@@ -39,7 +39,7 @@ namespace BudgetApplication.DataAccess
             return await _context.BankAccounts.Where(b => b.BankAccountId == bankAccountId).FirstOrDefaultAsync();
         }
 
-        public async void EditBankAccountAsync(BankAccounts userBankAccount)
+        public async Task EditBankAccountAsync(BankAccounts userBankAccount)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace BudgetApplication.DataAccess
             }
         }
 
-        public async void CreateBankAccountAsync(BankAccounts newBankAccount)
+        public async Task CreateBankAccountAsync(BankAccounts newBankAccount)
         {
             try
             {
