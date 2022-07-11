@@ -4,6 +4,7 @@ using BudgetApplication.Models;
 using BudgetApplication.Service;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,13 @@ builder.Services.AddScoped<BankAccountService>();
 builder.Services.AddScoped<BudgetApplicationContext>();
 builder.Services.AddScoped<BankAccountDataAccess>();
 builder.Services.AddScoped<BankAccountTypeDataAccess>();
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .WriteTo.File("C:\\Users\\ChadGalusha\\source\\repos\\BudgetApplication\\BudgetApplication\\logs\\BudgetApplicationLogs.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+Log.Information("Application Initializing");
 
 var app = builder.Build();
 

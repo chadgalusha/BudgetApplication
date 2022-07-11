@@ -1,6 +1,7 @@
 ﻿using BudgetApplication.Models;
 using BudgetApplication.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace BudgetApplication.DataAccess
 {
@@ -38,12 +39,7 @@ namespace BudgetApplication.DataAccess
             return await _context.BankAccounts.Where(b => b.BankAccountId == bankAccountId).FirstOrDefaultAsync();
         }
 
-        public async Task<BankAccounts> GetBankAccountTypeByBankAccountIdAsync(int bankAccountId)
-        {
-            return await _context.BankAccounts.FindAsync(bankAccountId);
-        }
-
-        public async void EditBankAccountAsync(BankAccounts userBankAccount)
+        public async Task EditBankAccountAsync(BankAccounts userBankAccount)
         {
             try
             {
@@ -52,11 +48,11 @@ namespace BudgetApplication.DataAccess
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Log.Error("Error, bank account not updated: {errormessage}", e.Message);
             }
         }
 
-        public async void CreateBankAccountAsync(BankAccounts newBankAccount)
+        public async Task CreateBankAccountAsync(BankAccounts newBankAccount)
         {
             try
             {
@@ -65,7 +61,7 @@ namespace BudgetApplication.DataAccess
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Log.Error("Error, bank account not created: {errormessage}", e.Message);
             }
         }
 
@@ -80,7 +76,7 @@ namespace BudgetApplication.DataAccess
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                Log.Error("Error, bank account not deleted: {errormessage}", e.Message);
                 return 0;
             }
         }

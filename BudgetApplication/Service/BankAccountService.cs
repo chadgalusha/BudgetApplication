@@ -43,13 +43,13 @@ namespace BudgetApplication.Service
 
         public int GetBankAccountTypeByBankAccountId(int bankAccountId)
         {
-            var currentBankAccountTypeId = _bankAccountDataAccess.GetBankAccountTypeByBankAccountIdAsync(bankAccountId).Result;
-            return (int)currentBankAccountTypeId.BankAccountTypeId;
+            var currentBankAccount = _bankAccountDataAccess.GetUserBankAccountByBankAccountIdAsync(bankAccountId).Result;
+            return (int)currentBankAccount.BankAccountTypeId;
         }
 
-        public void EditBankAccount(int bankAccountId, string bankAccountName, int bankAccountTypeId, decimal balance)
+        public async Task EditBankAccountAsync(int bankAccountId, string bankAccountName, int bankAccountTypeId, decimal balance)
         {
-            BankAccounts userBankAccount = _bankAccountDataAccess.GetUserBankAccountByBankAccountIdAsync(bankAccountId).Result;
+            BankAccounts userBankAccount = await _bankAccountDataAccess.GetUserBankAccountByBankAccountIdAsync(bankAccountId);
 
             if (userBankAccount.BankAccountName != bankAccountName)
             {
@@ -66,10 +66,10 @@ namespace BudgetApplication.Service
                 userBankAccount.Balance = balance;
             }
 
-            _bankAccountDataAccess.EditBankAccountAsync(userBankAccount);
+            await _bankAccountDataAccess.EditBankAccountAsync(userBankAccount);
         }
 
-        public void ModifyBalance(int bankAccountId, decimal balance)
+        public async Task ModifyBalanceAsync(int bankAccountId, decimal balance)
         {
             BankAccounts userBankAccount = _bankAccountDataAccess.GetUserBankAccountByBankAccountIdAsync(bankAccountId).Result;
 
@@ -78,10 +78,10 @@ namespace BudgetApplication.Service
                 userBankAccount.Balance = balance;
             }
 
-            _bankAccountDataAccess.EditBankAccountAsync(userBankAccount);
+            await _bankAccountDataAccess.EditBankAccountAsync(userBankAccount);
         }
 
-        public int CreateBankAccount(string userId, string bankAccountName, int bankAccountTypeId, decimal balance)
+        public async Task<int> CreateBankAccountAsync(string userId, string bankAccountName, int bankAccountTypeId, decimal balance)
         {
             var listUserBankAccountNames = _bankAccountDataAccess.GetListUserBankAccountNamesAsync(userId).Result;
 
@@ -101,14 +101,14 @@ namespace BudgetApplication.Service
                 Balance = balance
             };
 
-            _bankAccountDataAccess.CreateBankAccountAsync(newBankAccount);
+            await _bankAccountDataAccess.CreateBankAccountAsync(newBankAccount);
 
             return 1;
         }
 
-        public int DeleteBankAccount(int bankAccountId)
+        public async Task<int> DeleteBankAccountAsync(int bankAccountId)
         {
-            return _bankAccountDataAccess.DeleteBankAccountAsync(bankAccountId).Result;
+            return await _bankAccountDataAccess.DeleteBankAccountAsync(bankAccountId);
         }
     }
 }
