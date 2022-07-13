@@ -1,42 +1,21 @@
 ﻿using BudgetApplication.DataAccess;
 using BudgetApplication.Models;
-using Microsoft.EntityFrameworkCore;
+using System.Collections;
 
 namespace BudgetApplication.Service
 {
-    public class BankAccountTypeService
+    public class BankAccountTypeService : ITypeService<BankAccountTypes>
     {
-        private readonly BudgetApplicationContext _context;
-        private readonly BankAccountTypeDataAccess _bankAccountTypeDataAccess;
+        private readonly ITypeDataAccess<BankAccountTypes> _bankAccountTypeDataAccess;
 
-        public BankAccountTypeService(BudgetApplicationContext context, BankAccountTypeDataAccess bankAccountTypeDataAccess)
+        public BankAccountTypeService(ITypeDataAccess<BankAccountTypes> bankAccountTypeDataAccess)
         {
-            _context = context;
             _bankAccountTypeDataAccess = bankAccountTypeDataAccess;
         }
 
-        public async Task<List<BankAccountTypes>> GetBankAccountTypesAsync()
+        public async Task<IList> GetAllAsync()
         {
-            List<BankAccountTypes> bankAccountTypes = await _bankAccountTypeDataAccess.GetBankAccountTypesAsync();
-
-            List<BankAccountTypes> bankAccountTypesList = new();
-
-            foreach (var type in bankAccountTypes)
-            {
-                BankAccountTypes b = new()
-                {
-                    BankAccountTypeId = type.BankAccountTypeId,
-                    BankAccountType = type.BankAccountType
-                };
-                bankAccountTypesList.Add(b);
-            }
-
-            return bankAccountTypesList;
-        }
-
-        public DbSet<BankAccountTypes> GetBankAccountTypes()
-        {
-            return _bankAccountTypeDataAccess.GetBankAccountTypes();
+            return await _bankAccountTypeDataAccess.GetAllAsync();
         }
     }
 }

@@ -18,11 +18,18 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
 
+// Add Service Classes
 builder.Services.AddScoped<BankAccountTypeService>();
 builder.Services.AddScoped<BankAccountService>();
 builder.Services.AddScoped<BudgetApplicationContext>();
+
+// Add DataAccess Classes
 builder.Services.AddScoped<BankAccountDataAccess>();
 builder.Services.AddScoped<BankAccountTypeDataAccess>();
+
+// Add Interfaces
+builder.Services.AddTransient<ITypeDataAccess<BankAccountTypes>, BankAccountTypeDataAccess>();
+builder.Services.AddTransient<ITypeService<BankAccountTypes>, BankAccountTypeService>();
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()

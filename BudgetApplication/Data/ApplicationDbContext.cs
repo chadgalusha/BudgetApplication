@@ -11,7 +11,5 @@ namespace BudgetApplication.Data
         {
         }
 
-        //public virtual DbSet<BankAccountTypes> BankAccountTypes { get; set; }
-        //public virtual DbSet<BankAccounts> BankAccounts { get; set; }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using BudgetApplication.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
 
 namespace BudgetApplication.DataAccess
 {
-    public class BankAccountTypeDataAccess
+    public class BankAccountTypeDataAccess : ITypeDataAccess<BankAccountTypes>
     {
         private readonly BudgetApplicationContext _context;
 
@@ -12,14 +13,14 @@ namespace BudgetApplication.DataAccess
             _context = context;
         }
 
-        public async Task<List<BankAccountTypes>> GetBankAccountTypesAsync()
+        public async Task<IList> GetAllAsync()
         {
             return await _context.BankAccountTypes.ToListAsync();
         }
 
-        public DbSet<BankAccountTypes> GetBankAccountTypes()
+        public async Task<BankAccountTypes> GetByIdAsync(int bankAccountTypeId)
         {
-            return _context.BankAccountTypes;
+            return await _context.BankAccountTypes.Where(b => b.BankAccountTypeId == bankAccountTypeId).FirstOrDefaultAsync();
         }
     }
 }

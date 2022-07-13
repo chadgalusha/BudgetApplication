@@ -43,6 +43,12 @@ namespace BudgetApplication.Models
         //    OnModelCreatingPartial(modelBuilder);
         //}
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<EstimatedIncomeToIncome>()
+                .HasKey(k => new { k.EstimatedIncomeId, k.IncomeId } );
+        }
+
         //partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

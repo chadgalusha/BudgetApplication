@@ -12,11 +12,12 @@ namespace BudgetApplication.Controllers
     [Authorize]
     public class BankAccountsController : Controller
     {
-        private readonly BankAccountTypeService _bankAccountTypeService;
+        //private readonly BankAccountTypeService _bankAccountTypeService;
+        private readonly ITypeService<BankAccountTypes> _bankAccountTypeService;
         private readonly BankAccountService _bankAccountService;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public BankAccountsController(BankAccountTypeService bankAccountTypeService, BankAccountService bankAccountService, 
+        public BankAccountsController(ITypeService<BankAccountTypes> bankAccountTypeService, BankAccountService bankAccountService, 
             UserManager<IdentityUser> userManager)
         {
             _bankAccountTypeService = bankAccountTypeService;
@@ -40,7 +41,7 @@ namespace BudgetApplication.Controllers
             }
 
             int myBankAccountId = (int)bankAccountId;
-            ViewData["BankAccountTypeId"] = new SelectList(_bankAccountTypeService.GetBankAccountTypes(), "BankAccountTypeId", "BankAccountType", _bankAccountService.GetBankAccountTypeByBankAccountId(myBankAccountId));
+            ViewData["BankAccountTypeId"] = new SelectList(await _bankAccountTypeService.GetAllAsync(), "BankAccountTypeId", "BankAccountType", _bankAccountService.GetBankAccountTypeByBankAccountId(myBankAccountId));
             return View(await _bankAccountService.GetUserBankAccountByBankAccountIdAsync(myBankAccountId));
         }
 
@@ -68,9 +69,9 @@ namespace BudgetApplication.Controllers
 
         [HttpGet("createbankaccount")]
         [ActionName("CreateBankAccount")]
-        public IActionResult CreateBankAccount()
+        public async Task<IActionResult> CreateBankAccount()
         {
-            ViewData["BankAccountTypeId"] = new SelectList(_bankAccountTypeService.GetBankAccountTypes(), "BankAccountTypeId", "BankAccountType");
+            ViewData["BankAccountTypeId"] = new SelectList(await _bankAccountTypeService.GetAllAsync(), "BankAccountTypeId", "BankAccountType");
             return View();
         }
 
@@ -91,7 +92,7 @@ namespace BudgetApplication.Controllers
         }
 
         [HttpGet("deletebankaccount")]
-        public IActionResult DeleteBankAccount(int bankAccountId)
+        public async Task<IActionResult> DeleteBankAccount(int bankAccountId)
         {
             BankAccounts userBankAccount = _bankAccountService.GetUserBankAccountByBankAccountIdAsync(bankAccountId).Result;
 
@@ -100,7 +101,7 @@ namespace BudgetApplication.Controllers
                 return NotFound();
             }
 
-            ViewData["BankAccountTypeId"] = new SelectList(_bankAccountTypeService.GetBankAccountTypes(), "BankAccountTypeId", "BankAccountType");
+            ViewData["BankAccountTypeId"] = new SelectList(await _bankAccountTypeService.GetAllAsync(), "BankAccountTypeId", "BankAccountType");
             return View(userBankAccount);
         }
 
@@ -132,7 +133,7 @@ namespace BudgetApplication.Controllers
         [HttpGet("bankaccounttypes")]
         public async Task<IActionResult> BankAccountTypes()
         {
-            return View(await _bankAccountTypeService.GetBankAccountTypesAsync());
+            return View(await _bankAccountTypeService.GetAllAsync());
         }
 
         [HttpGet("bankaccounttypes/create")]

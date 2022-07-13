@@ -65,7 +65,7 @@ namespace BudgetApplication.DataAccess
             }
         }
 
-        public async Task<int> DeleteBankAccountAsync(int bankAccountId)
+        public async Task<int> DeleteBankAccountByIdAsync(int bankAccountId)
         {
             try
             {

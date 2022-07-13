@@ -7,12 +7,10 @@ namespace BudgetApplication.Service
 {
     public class BankAccountService
     {
-        private readonly UserManager<IdentityUser> _userManager;
         private readonly BankAccountDataAccess _bankAccountDataAccess;
 
-        public BankAccountService(UserManager<IdentityUser> userManager, BankAccountDataAccess bankAccountDataAccess)
+        public BankAccountService(BankAccountDataAccess bankAccountDataAccess)
         {
-            _userManager = userManager;
             _bankAccountDataAccess = bankAccountDataAccess;
         }
 
@@ -108,7 +106,7 @@ namespace BudgetApplication.Service
 
         public async Task<int> DeleteBankAccountAsync(int bankAccountId)
         {
-            return await _bankAccountDataAccess.DeleteBankAccountAsync(bankAccountId);
+            return await _bankAccountDataAccess.DeleteBankAccountByIdAsync(bankAccountId);
         }
     }
 }
