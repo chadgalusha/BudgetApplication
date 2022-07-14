@@ -30,6 +30,8 @@ builder.Services.AddScoped<BankAccountTypeDataAccess>();
 // Add Interfaces
 builder.Services.AddTransient<ITypeDataAccess<BankAccountTypes>, BankAccountTypeDataAccess>();
 builder.Services.AddTransient<ITypeService<BankAccountTypes>, BankAccountTypeService>();
+builder.Services.AddTransient<IBankAccountDataAccess, BankAccountDataAccess>();
+builder.Services.AddTransient<IBankAccountService, BankAccountService>();
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()

@@ -13,7 +13,7 @@ namespace BudgetApplication.Models
         public decimal? EstimatedAmount { get; set; }
 
         [DisplayName("Frequency")]
-        public int? FrequencyId { get; set; }
+        public int? PaymentFrequencyTypeId { get; set; }
 
         [DisplayName("Estimated Income Date")]
         public DateTime? EstimatedIncomeDate { get; set; }

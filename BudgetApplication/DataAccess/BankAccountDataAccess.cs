@@ -5,7 +5,7 @@ using Serilog;
 
 namespace BudgetApplication.DataAccess
 {
-    public class BankAccountDataAccess
+    public class BankAccountDataAccess : IBankAccountDataAccess
     {
         private readonly BudgetApplicationContext _context;
 
@@ -17,15 +17,15 @@ namespace BudgetApplication.DataAccess
         public List<BankAccountsViewModel> GetUserBankAccounts(string userId)
         {
             var bankAccountsViewModel = (from b in _context.BankAccounts
-                                    join bat in _context.BankAccountTypes on b.BankAccountTypeId equals bat.BankAccountTypeId
-                                    where b.UserId == userId
-                                    select new BankAccountsViewModel
-                                    {
-                                        BankAccountId = b.BankAccountId,
-                                        BankAccountName = b.BankAccountName,
-                                        BankAccountType = bat.BankAccountType,
-                                        Balance = b.Balance
-                                    }).ToList();
+                                         join bat in _context.BankAccountTypes on b.BankAccountTypeId equals bat.BankAccountTypeId
+                                         where b.UserId == userId
+                                         select new BankAccountsViewModel
+                                         {
+                                             BankAccountId = b.BankAccountId,
+                                             BankAccountName = b.BankAccountName,
+                                             BankAccountType = bat.BankAccountType,
+                                             Balance = b.Balance
+                                         }).ToList();
             return bankAccountsViewModel;
         }
 
@@ -36,7 +36,7 @@ namespace BudgetApplication.DataAccess
 
         public async Task<BankAccounts> GetUserBankAccountByBankAccountIdAsync(int bankAccountId)
         {
-            return await _context.BankAccounts.Where(b => b.BankAccountId == bankAccountId).FirstOrDefaultAsync();
+            return await _context.BankAccounts.Where(b => b.BankAccountId == bankAccountId).FirstOrDefaultAsync() ?? new BankAccounts();
         }
 
         public async Task EditBankAccountAsync(BankAccounts userBankAccount)

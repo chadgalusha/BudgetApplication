@@ -17,5 +17,10 @@ namespace BudgetApplication.Service
         {
             return await _bankAccountTypeDataAccess.GetAllAsync();
         }
+
+        public async Task<BankAccountTypes> GetByIdAsync(int bankAccountTypeId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

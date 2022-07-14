@@ -5,11 +5,11 @@ using Microsoft.AspNetCore.Identity;
 
 namespace BudgetApplication.Service
 {
-    public class BankAccountService
+    public class BankAccountService : IBankAccountService
     {
-        private readonly BankAccountDataAccess _bankAccountDataAccess;
+        private readonly IBankAccountDataAccess _bankAccountDataAccess;
 
-        public BankAccountService(BankAccountDataAccess bankAccountDataAccess)
+        public BankAccountService(IBankAccountDataAccess bankAccountDataAccess)
         {
             _bankAccountDataAccess = bankAccountDataAccess;
         }

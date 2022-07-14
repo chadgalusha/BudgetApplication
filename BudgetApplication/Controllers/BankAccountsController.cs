@@ -12,12 +12,11 @@ namespace BudgetApplication.Controllers
     [Authorize]
     public class BankAccountsController : Controller
     {
-        //private readonly BankAccountTypeService _bankAccountTypeService;
         private readonly ITypeService<BankAccountTypes> _bankAccountTypeService;
-        private readonly BankAccountService _bankAccountService;
+        private readonly IBankAccountService _bankAccountService;
         private readonly UserManager<IdentityUser> _userManager;
 
-        public BankAccountsController(ITypeService<BankAccountTypes> bankAccountTypeService, BankAccountService bankAccountService, 
+        public BankAccountsController(ITypeService<BankAccountTypes> bankAccountTypeService, IBankAccountService bankAccountService, 
             UserManager<IdentityUser> userManager)
         {
             _bankAccountTypeService = bankAccountTypeService;

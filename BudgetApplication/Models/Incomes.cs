@@ -25,7 +25,7 @@ namespace BudgetApplication.Models
         public int? IncomeTypeId { get; set; }
 
         [DisplayName("Frequency")]
-        public int? FrequencyId { get; set; }
+        public int? PaymentFrequencyTypeId { get; set; }
 
         public virtual IncomeTypes? IncomeType { get; set; }
         public virtual ICollection<IncomeHistory> IncomeHistories { get; set; }

@@ -20,7 +20,7 @@ namespace BudgetApplication.Models
         public virtual DbSet<Incomes> Incomes { get; set; } = null!;
         public virtual DbSet<IncomeHistory> IncomeHistories { get; set; } = null!;
         public virtual DbSet<IncomeTypes> IncomeTypes { get; set; } = null!;
-        public virtual DbSet<PaymentFrequencies> PaymentFrequencies { get; set; } = null!;
+        public virtual DbSet<PaymentFrequencyTypes> PaymentFrequencyTypes { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
