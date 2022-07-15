@@ -1,4 +1,5 @@
 ﻿using BudgetApplication.Models;
+using BudgetApplication.ViewModels;
 using System.Collections;
 
 namespace BudgetApplication.Service
@@ -10,5 +11,6 @@ namespace BudgetApplication.Service
         Task<int> EditIncomeAsync(int incomeId, string incomeName, string userId, int incomeTypeId, int paymentFrequencyId);
         Task<Incomes> GetUserIncomeByIdAsync(string userId, int incomeId);
         Task<IList> GetUserIncomesAsync(string userId);
+        List<IncomesViewModel> GetListIncomes(string userId);
     }
 }

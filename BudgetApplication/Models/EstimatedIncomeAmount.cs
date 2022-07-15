@@ -10,6 +10,8 @@ namespace BudgetApplication.Models
 
         [Required]
         [DisplayName("Estimated Amount")]
+        [RegularExpression(@"^\d+\.\d{0, 2}$", ErrorMessage = "Must be in a numerical format (123, 123.45, etc.)")]
+        [Range(-9999999999999999.99, 9999999999999999.99, ErrorMessage = "Balance must be a numerical value")]
         public decimal? EstimatedAmount { get; set; }
 
         [DisplayName("Frequency")]

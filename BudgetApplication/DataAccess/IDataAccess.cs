@@ -9,5 +9,7 @@ namespace BudgetApplication.DataAccess
         Task<int> EditAsync(T entity);
         Task<int> CreateAsync(T entity);
         Task<int> DeleteByIdAsync(int id);
+        Task<List<string>> GetListNamesAsync(string userId);
+        IList GetListIncomes(string userId);
     }
 }

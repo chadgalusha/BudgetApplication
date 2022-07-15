@@ -18,7 +18,7 @@ namespace BudgetApplication.Models
         public virtual DbSet<EstimatedIncomeAmount> EstimatedIncomeAmounts { get; set; } = null!;
         public virtual DbSet<EstimatedIncomeToIncome> EstimatedIncomeToIncomes { get; set; } = null!;
         public virtual DbSet<Incomes> Incomes { get; set; } = null!;
-        public virtual DbSet<IncomeHistory> IncomeHistories { get; set; } = null!;
+        public virtual DbSet<IncomeHistory> IncomeHistory { get; set; } = null!;
         public virtual DbSet<IncomeTypes> IncomeTypes { get; set; } = null!;
         public virtual DbSet<PaymentFrequencyTypes> PaymentFrequencyTypes { get; set; } = null!;
 

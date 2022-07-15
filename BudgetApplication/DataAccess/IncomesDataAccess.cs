@@ -1,7 +1,11 @@
 ﻿using BudgetApplication.Models;
+using BudgetApplication.Utilities;
+using BudgetApplication.ViewModels;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System.Collections;
+using System.Configuration;
 
 namespace BudgetApplication.DataAccess
 {
@@ -19,13 +23,14 @@ namespace BudgetApplication.DataAccess
             try
             {
                 _context.Incomes.Add(newIncome);
-                var result = await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
                 return 1;
             }
             catch (Exception e)
             {
                 Log.Error("Error, income not created: {errormessage}", e.Message);
-                return 0;
+                ExceptionsUtility.LogInnerExceptionMessageIfExists(e);
+                return -1;
             }
         }
 
@@ -41,6 +46,7 @@ namespace BudgetApplication.DataAccess
             catch (Exception e)
             {
                 Log.Error("Error, income not deleted: {errormessage}", e.Message);
+                ExceptionsUtility.LogInnerExceptionMessageIfExists(e);
                 return 0;
             }
         }
@@ -56,6 +62,7 @@ namespace BudgetApplication.DataAccess
             catch (Exception e)
             {
                 Log.Error("Error, income not updated: {errormessage}", e.Message);
+                ExceptionsUtility.LogInnerExceptionMessageIfExists(e);
                 return 0;
             }
         }
@@ -68,6 +75,27 @@ namespace BudgetApplication.DataAccess
         public async Task<Incomes> GetByIdAsync(int incomeId)
         {
             return await _context.Incomes.Where(i => i.IncomeId == incomeId).FirstOrDefaultAsync() ?? new Incomes();
+        }
+
+        public async Task<List<string>> GetListNamesAsync(string userId)
+        {
+            return await _context.Incomes.Where(a => a.UserId == userId).Select(a => a.IncomeName).ToListAsync();
+        }
+
+        public IList GetListIncomes(string userId)
+        {
+            List<IncomesViewModel> incomesList = (from i in _context.Incomes
+                               join it in _context.IncomeTypes on i.IncomeTypeId equals it.IncomeTypeId
+                               join p in _context.PaymentFrequencyTypes on i.PaymentFrequencyTypeId equals p.PaymentFrequencyTypeId
+                               where i.UserId == userId
+                               select new IncomesViewModel
+                               {
+                                   IncomeId = i.IncomeId,
+                                   IncomeName = i.IncomeName,
+                                   IncomeType = it.IncomeType,
+                                   PaymentFrequency = p.PaymentFrequencyType
+                               }).ToList();
+            return incomesList;
         }
     }
 }

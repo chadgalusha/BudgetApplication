@@ -26,14 +26,42 @@ namespace BudgetApplication.Controllers
         } 
 
         [HttpGet]
-        public async Task<IActionResult> Incomes()
+        public IActionResult Incomes()
         {
             var userId = _userManager.GetUserId(User);
-            ViewData["IncomeTypesId"] = new SelectList(await _incomeTypeService.GetAllAsync(), "IncomeTypesId", "IncomeTypes");
-            ViewData["PaymentFrequencyTypesId"] = new SelectList(await _paymentFrequencyTypesService.GetAllAsync(), "PaymentFrequencyTypeId", "PaymentFrequencyType");
-            return View(await _incomeService.GetUserIncomesAsync(userId));
+            return View(_incomeService.GetListIncomes(userId));
         }
 
-        // IMPLEMENT VIEW!!
+        [HttpGet("createincome")]
+        [ActionName("CreateIncome")]
+        public async Task<IActionResult> CreateIncome()
+        {
+            ViewData["IncomeTypeId"] = new SelectList(await _incomeTypeService.GetAllAsync(), "IncomeTypeId", "IncomeType");
+            ViewData["PaymentFrequencyTypeId"] = new SelectList(await _paymentFrequencyTypesService.GetAllAsync(), "PaymentFrequencyTypeId", "PaymentFrequencyType");
+            return View();
+        }
+
+        [HttpPost("createincome")]
+        public async Task<IActionResult> CreateIncome(string incomeName, int incomeTypeId, int paymentFrequencyTypeId)
+        {
+            string userId = _userManager.GetUserId(User);
+
+            int result = await _incomeService.CreateIncomeAsync(incomeName, userId, incomeTypeId, paymentFrequencyTypeId);
+
+            if (result == 0)
+            {
+                TempData["ErrorMessage"] = "You already have an income with that name, please try another";
+                return RedirectToAction("CreateIncome");
+            }
+
+            if (result == -1)
+            {
+                TempData["ErrorMessage"] = "Error creating income, please try again";
+                return RedirectToAction("CreateIncome");
+            }
+
+            return RedirectToAction(nameof(Incomes));
+        }
+
     }
 }

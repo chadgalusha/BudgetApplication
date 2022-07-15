@@ -1,0 +1,59 @@
+﻿
+@model IEnumerable<BudgetApplication.ViewModels.IncomesViewModel>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+@{
+    
+}
+<h1 style="margin:auto; text-align:center;">My Incomes</h1>
+
+<table class="styled-table" style="margin:auto;">
+    <thead>
+        <tr>
+            <th style="display:none;">
+                @Html.DisplayNameFor(model => model.IncomeId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IncomeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IncomeType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentFrequency)
+            </th>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="display:none;">
+                    @Html.DisplayFor(modelItem => item.IncomeId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IncomeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IncomeType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentFrequency)
+                </td>
+                <td>
+                    <a asp-controller="Incomes" asp-action="" asp-route-bankAccountId="@item.IncomeId" class="btn btn-warning btn-sm">Edit</a> | 
+                    <a asp-controller="Incomes" asp-action="" asp-route-bankAccountId="@item.IncomeId" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="center-button">
+    <a asp-controller="Incomes" asp-action="CreateIncome" class="btn btn-primary btn-sm" id="center-button">Create New Income</a>
+</div>

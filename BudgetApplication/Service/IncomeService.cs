@@ -1,5 +1,6 @@
 ﻿using BudgetApplication.DataAccess;
 using BudgetApplication.Models;
+using BudgetApplication.ViewModels;
 using Serilog;
 using System.Collections;
 
@@ -12,6 +13,11 @@ namespace BudgetApplication.Service
         public IncomeService(IDataAccess<Incomes> incomeDataAccess)
         {
             _incomeDataAccess = incomeDataAccess;
+        }
+
+        public List<IncomesViewModel> GetListIncomes(string userId)
+        {
+            return (List<IncomesViewModel>)_incomeDataAccess.GetListIncomes(userId);
         }
 
         public async Task<IList> GetUserIncomesAsync(string userId)
@@ -31,7 +37,7 @@ namespace BudgetApplication.Service
             return userIncomes.FirstOrDefault(i => i.IncomeId == incomeId) ?? new Incomes();
         }
 
-        public async Task<int> EditIncomeAsync(int incomeId, string incomeName, string userId, int incomeTypeId, int paymentFrequencyId)
+        public async Task<int> EditIncomeAsync(int incomeId, string incomeName, string userId, int incomeTypeId, int paymentFrequencyTypeId)
         {
             if (IsUserOwnerOfIncome(userId, incomeId) == false)
             {
@@ -43,13 +49,23 @@ namespace BudgetApplication.Service
 
             userIncome.IncomeName = incomeName;
             userIncome.IncomeTypeId = incomeTypeId;
-            userIncome.PaymentFrequencyTypeId = paymentFrequencyId;
+            userIncome.PaymentFrequencyTypeId = paymentFrequencyTypeId;
 
             return await _incomeDataAccess.EditAsync(userIncome);
         }
 
         public async Task<int> CreateIncomeAsync(string incomeName, string userId, int incomeTypeId, int paymentFrequencyId)
         {
+            List<string> findNames = await _incomeDataAccess.GetListNamesAsync(userId);
+
+            foreach (var iname in findNames)
+            {
+                if (iname.ToLower().Equals(incomeName.ToLower()))
+                {
+                    return 0;
+                }
+            }
+
             Incomes newIncome = new()
             {
                 IncomeName = incomeName,

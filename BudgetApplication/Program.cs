@@ -22,16 +22,28 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<BankAccountTypeService>();
 builder.Services.AddScoped<BankAccountService>();
 builder.Services.AddScoped<BudgetApplicationContext>();
+builder.Services.AddScoped<IncomeService>();
+builder.Services.AddScoped<IncomeTypeService>();
+builder.Services.AddScoped<PaymentFrequencyTypeService>();
 
 // Add DataAccess Classes
 builder.Services.AddScoped<BankAccountDataAccess>();
 builder.Services.AddScoped<BankAccountTypeDataAccess>();
+builder.Services.AddScoped<IncomesDataAccess>();
+builder.Services.AddScoped<IncomeTypesDataAccess>();
+builder.Services.AddScoped<PaymentFrequencyTypesDataAccess>();
 
 // Add Interfaces
 builder.Services.AddTransient<ITypeDataAccess<BankAccountTypes>, BankAccountTypeDataAccess>();
+builder.Services.AddTransient<ITypeDataAccess<IncomeTypes>, IncomeTypesDataAccess>();
+builder.Services.AddTransient<ITypeDataAccess<PaymentFrequencyTypes>, PaymentFrequencyTypesDataAccess>();
 builder.Services.AddTransient<ITypeService<BankAccountTypes>, BankAccountTypeService>();
+builder.Services.AddTransient<ITypeService<IncomeTypes>, IncomeTypeService>();
+builder.Services.AddTransient<ITypeService<PaymentFrequencyTypes>, PaymentFrequencyTypeService>();
 builder.Services.AddTransient<IBankAccountDataAccess, BankAccountDataAccess>();
 builder.Services.AddTransient<IBankAccountService, BankAccountService>();
+builder.Services.AddTransient<IDataAccess<Incomes>, IncomesDataAccess>();
+builder.Services.AddTransient<IIncomeService, IncomeService>();
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()

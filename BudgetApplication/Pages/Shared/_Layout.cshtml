@@ -35,6 +35,13 @@
                                 <li><a asp-area="" asp-controller="BankAccounts" asp-action="CreateBankAccount">Create Bank Account</a></li>
                             </ul>
                         </li>
+                        <li id="dropdown-list">
+                            <button class="btn btn-default" id="dropdown-list-button">Incomes</button>
+                            <ul id="dropdown-list-content">
+                                <li><a asp-area="" asp-controller="Incomes" asp-action="Incomes">Incomes</a></li>
+                                <li><a asp-area="" asp-controller="Incomes" asp-action="CreateIncome">Create Income</a></li>
+                            </ul>
+                        </li>
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
