@@ -1,11 +1,9 @@
 ﻿using BudgetApplication.Models;
 using BudgetApplication.Utilities;
 using BudgetApplication.ViewModels;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System.Collections;
-using System.Configuration;
 
 namespace BudgetApplication.DataAccess
 {

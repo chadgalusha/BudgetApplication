@@ -1,4 +1,5 @@
 ﻿using BudgetApplication.Models;
+using BudgetApplication.Utilities;
 using BudgetApplication.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -49,6 +50,7 @@ namespace BudgetApplication.DataAccess
             catch (Exception e)
             {
                 Log.Error("Error, bank account not updated: {errormessage}", e.Message);
+                ExceptionsUtility.LogInnerExceptionMessageIfExists(e);
             }
         }
 
@@ -62,6 +64,7 @@ namespace BudgetApplication.DataAccess
             catch (Exception e)
             {
                 Log.Error("Error, bank account not created: {errormessage}", e.Message);
+                ExceptionsUtility.LogInnerExceptionMessageIfExists(e);
             }
         }
 
@@ -77,6 +80,7 @@ namespace BudgetApplication.DataAccess
             catch (Exception e)
             {
                 Log.Error("Error, bank account not deleted: {errormessage}", e.Message);
+                ExceptionsUtility.LogInnerExceptionMessageIfExists(e);
                 return 0;
             }
         }
